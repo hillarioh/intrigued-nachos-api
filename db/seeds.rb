@@ -8,39 +8,50 @@
 
 10.times do
     User.create(
-       username: Faker::Name.unique.first_name,
+       username: Faker::Internet.unique.username,
        fullname:  Faker::FunnyName.unique.two_word_name,
-       email: "okerioh@gmail.com",
-       password: Faker::Nation.capital_city,
-        tel_no: Faker::PhoneNumber.unique.cell_phone
+       email: Faker::Internet.unique.email,
+       password: Faker::Internet.password,
+       tel_no: Faker::PhoneNumber.unique.cell_phone,
     )
 end
 
 5.times do
     Category.create(
-        title: Faker::Cannabis.category,
+        title: Faker::Cannabis.unique.category,
     )
 end
 
 7.times do
     Order.create(
-        user_id:  Random.rand(1..10),
+        user_id:  Faker::Number.within(range: 1..10),
     )
 end
 
 20.times do
     OrderItem.create(
-        quantity: Random.rand(1..5),
-        product_id: Random.rand(1..30),
-        order_id: Random.rand(1..7),
-        price: 1000,
-        discount: 200,
-        total: 2000,
+        quantity: Faker::Number.within(range: 1..5),
+        product_id: Faker::Number.within(range: 1..30),
+        order_id: Faker::Number.within(range: 1..7),
+        price: Faker::Number.decimal(l_digits: 3, r_digits: 2),
+        discount: Faker::Number.within(range: 100..300),
+        total: Faker::Number.decimal(l_digits: 4, r_digits: 2),
     )
 end
 
 30.times do
     Product.create(
-        title: Faker::
+        title: Faker::Book.title,
+        description: Faker::Lorem.sentence(word_count: 30), 
+        image_url: Faker::Internet.url,
+        price: Faker::Number.number(digits: 4),
+        category_id: Faker::Number.within(range: 1..5),
+    )
+end
+
+10.times do
+    Favorite.create(
+        user_id:Faker::Number.within(range: 1..10),
+        product_id: Faker::Number.within(range: 1..30),
     )
 end
